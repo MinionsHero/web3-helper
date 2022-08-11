@@ -50,11 +50,11 @@ export class FastScan {
     private output: string
     private offset = 100
 
-    constructor(baseURL: string, apiKeys: string[], providers: ethers.providers.JsonRpcProvider[], output: string) {
-        if (apiKeys.length > 100) {
+    constructor(blockScans: BlockScan[], providers: ethers.providers.JsonRpcProvider[], output: string) {
+        if (blockScans.length > 100) {
             throw new Error('apiKey count should be less then 100')
         }
-        this.blockScans = apiKeys.map(apiKey => BlockScan.query(baseURL, apiKey))
+        this.blockScans = blockScans
         if (providers.length === 0) {
             throw new Error('provider count should be greater than 0')
         }
@@ -526,26 +526,4 @@ export class FastScan {
         return file
     }
 
-}
-
-
-export class FastBscScan extends FastScan {
-
-    constructor(apiKeys: string[], providers: ethers.providers.JsonRpcProvider[], output: string) {
-        super('https://api.bscscan.com', apiKeys, providers, output)
-    }
-}
-
-export class FastEtherScan extends FastScan {
-
-    constructor(apiKeys: string[], providers: ethers.providers.JsonRpcProvider[], output: string) {
-        super('https://api.etherscan.io', apiKeys, providers, output)
-    }
-}
-
-export class FastBTTCScan extends FastScan {
-
-    constructor(apiKeys: string[], providers: ethers.providers.JsonRpcProvider[], output: string) {
-        super('https://api.bttcscan.com', apiKeys, providers, output)
-    }
 }

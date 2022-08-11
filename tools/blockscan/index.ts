@@ -32,4 +32,4 @@ export {
     BlockRewardQuery,
     BlockRewardResponse
 } from './types'
-export { BlockScan, BscScan } from './blockscan'
+export { BlockScan } from './blockscan'

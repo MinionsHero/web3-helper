@@ -270,14 +270,3 @@ export class BlockScan {
         }))
     }
 }
-
-export class BscScan extends BlockScan {
-
-    constructor(apiKey: string, timeout: number = 10000) {
-        super('https://api.bscscan.com', apiKey, timeout)
-    }
-
-    public static query(apiKey: string) {
-        return new BscScan(apiKey)
-    }
-}

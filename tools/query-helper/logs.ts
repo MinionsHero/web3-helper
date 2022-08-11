@@ -1,6 +1,4 @@
-// import bscApiKeys from '../../data/bsc-apikeys'
-// import providers from '../../data/providers'
-import { FastBscScan, FastScan } from '../../tools/blockscan/fast-scan'
+import { FastScan } from '../../tools/blockscan/fast-scan'
 import { GetLogsQuery } from '../blockscan'
 import { GetLogsResponse, GetTxReceipt } from '../blockscan/types'
 
