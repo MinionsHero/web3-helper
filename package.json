@@ -2,7 +2,7 @@
   "name": "web3-helper",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "types": "types",
+  "types": "dist",
   "license": "MIT",
   "scripts": {
     "compile": "rm -rf dist && rm -rf types && npx tsc"
