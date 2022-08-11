@@ -4,6 +4,9 @@
   "main": "dist/index.js",
   "types": "types",
   "license": "MIT",
+  "scripts": {
+    "compile": "rm -rf dist && rm -rf types && npx tsc"
+  },
   "dependencies": {
     "axios": "^0.27.2",
     "bignumber.js": "^9.1.0",
