@@ -49,13 +49,19 @@ export class BlockScan {
     public apiKey: string
     private baseURL: string
     private timeout: number
-    private axiosConfig?: AxiosRequestConfig
+    private customFetch: <T>(url: string) => Promise<Data<T>>
 
-    constructor(baseURL: string, apiKey: string, timeout: number = 10000, axiosConfig?: AxiosRequestConfig) {
+    constructor(baseURL: string, apiKey: string, timeout: number = 10000, customFetch?: <T>(url: string) => Promise<Data<T>>) {
         this.apiKey = apiKey
         this.baseURL = baseURL
         this.timeout = timeout
-        this.axiosConfig = axiosConfig
+        this.customFetch = customFetch || async function <T>(url: string) {
+            const response = await axios.get(url, {
+                responseType: 'json'
+            })
+            var data: Data<T> = response.data
+            return data
+        }
     }
 
     // private static availableInstances: BlockScan[] = []
@@ -80,11 +86,7 @@ export class BlockScan {
         const url = this.baseURL + '/api?' + qs.stringify(Object.assign({ apiKey: this.apiKey, module }, query))
         console.log(url)
         try {
-            const response = await axios.get(url, {
-                responseType: 'json',
-                ...this.axiosConfig
-            })
-            var data: Data<T> = response.data
+            var data: Data<T> = await this.customFetch(url)
             if (data.status && data.status !== Status.SUCCESS) {
                 let returnMessage: string = data.message || 'NOTOK';
                 if (returnMessage === 'No transactions found' || returnMessage === 'No records found') {
