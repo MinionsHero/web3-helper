@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 import qs from 'qs'
 import {
     Data,
@@ -49,13 +49,13 @@ export class BlockScan {
     public apiKey: string
     private baseURL: string
     private timeout: number
-    private httpsAgent: any
+    private axiosConfig?: AxiosRequestConfig
 
-    constructor(baseURL: string, apiKey: string, timeout: number = 10000, httpsAgent?: any) {
+    constructor(baseURL: string, apiKey: string, timeout: number = 10000, axiosConfig?: AxiosRequestConfig) {
         this.apiKey = apiKey
         this.baseURL = baseURL
         this.timeout = timeout
-        this.httpsAgent = httpsAgent
+        this.axiosConfig = axiosConfig
     }
 
     // private static availableInstances: BlockScan[] = []
@@ -82,7 +82,7 @@ export class BlockScan {
         try {
             const response = await axios.get(url, {
                 responseType: 'json',
-                httpsAgent: this.httpsAgent
+                ...this.axiosConfig
             })
             var data: Data<T> = response.data
             if (data.status && data.status !== Status.SUCCESS) {

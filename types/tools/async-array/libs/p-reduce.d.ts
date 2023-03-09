@@ -1,4 +1,4 @@
-export declare type ReducerFunction<ValueType, ReducedValueType = ValueType> = (previousValue: ReducedValueType, currentValue: ValueType, index: number) => PromiseLike<ReducedValueType> | ReducedValueType;
+export type ReducerFunction<ValueType, ReducedValueType = ValueType> = (previousValue: ReducedValueType, currentValue: ValueType, index: number) => PromiseLike<ReducedValueType> | ReducedValueType;
 /**
 Reduce a list of values using promises into a promise for a value.
 

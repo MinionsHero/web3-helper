@@ -23,7 +23,7 @@ export interface ERC20 {
     name: string;
     decimals: number;
 }
-export declare type BlockNumber = number | 'latest';
+export type BlockNumber = number | 'latest';
 export interface Data<T> {
     status: Status;
     message: "OK" | "NOTOK";
@@ -39,22 +39,22 @@ export interface QueryRequired {
     apiKey: string;
 }
 /**************************************** Account ******************************************/
-export declare type AccountTokenBalanceQuery = {
+export type AccountTokenBalanceQuery = {
     contractaddress?: string;
     tokenname?: string;
     address?: string;
     tag?: BlockNumber;
 };
-export declare type AccountTokenBalanceResponse = string;
-export declare type AccountBalanceQuery = {
+export type AccountTokenBalanceResponse = string;
+export type AccountBalanceQuery = {
     tag?: BlockNumber;
     address: string | string[];
 };
-export declare type AccountBalanceResponse<T = AccountBalanceQuery['address']> = T extends string ? string : {
+export type AccountBalanceResponse<T = AccountBalanceQuery['address']> = T extends string ? string : {
     account: string;
     balance: string;
 }[];
-export declare type AccountTxListInternalQueryByAddress = {
+export type AccountTxListInternalQueryByAddress = {
     address?: string;
     startblock?: BlockNumber;
     endblock?: BlockNumber;
@@ -62,10 +62,10 @@ export declare type AccountTxListInternalQueryByAddress = {
     offset: number;
     sort?: Sort;
 };
-export declare type AccountTxListInternalQuery = {
+export type AccountTxListInternalQuery = {
     txhash: string;
 } | AccountTxListInternalQueryByAddress;
-export declare type AccountTxListInternalResponse = {
+export type AccountTxListInternalResponse = {
     blockNumber: string;
     timeStamp: string;
     hash: string;
@@ -81,7 +81,7 @@ export declare type AccountTxListInternalResponse = {
     isError: string;
     errCode: string;
 };
-export declare type AccountTxListQuery = {
+export type AccountTxListQuery = {
     address?: string;
     startblock?: BlockNumber;
     endblock?: BlockNumber;
@@ -89,7 +89,7 @@ export declare type AccountTxListQuery = {
     offset: number;
     sort?: Sort;
 };
-export declare type AccountTxListResponse = {
+export type AccountTxListResponse = {
     blockNumber: string;
     timeStamp: string;
     hash: string;
@@ -111,17 +111,17 @@ export declare type AccountTxListResponse = {
     methodId: string;
     functionName: string;
 };
-export declare type AccountMineBlocksQuery = {
+export type AccountMineBlocksQuery = {
     address: string;
     page: number;
     offset: number;
 };
-export declare type AccountMineBlocksResponse = {
+export type AccountMineBlocksResponse = {
     blockNumber: string;
     timeStamp: string;
     blockReward: string;
 };
-declare type TokenTransferEventQuery = {
+type TokenTransferEventQuery = {
     contractaddress: string;
     address: string;
 } | {
@@ -129,14 +129,14 @@ declare type TokenTransferEventQuery = {
 } | {
     address: string;
 };
-export declare type AccountERC20TokenTransferEventQuery = TokenTransferEventQuery & {
+export type AccountERC20TokenTransferEventQuery = TokenTransferEventQuery & {
     page: number;
     offset: number;
     startblock?: BlockNumber;
     endblock?: BlockNumber;
     sort?: Sort;
 };
-export declare type AccountERC20TokenTransferEventResponse = {
+export type AccountERC20TokenTransferEventResponse = {
     blockNumber: string;
     timeStamp: string;
     hash: string;
@@ -157,14 +157,14 @@ export declare type AccountERC20TokenTransferEventResponse = {
     input: "deprecated";
     confirmations: string;
 };
-export declare type AccountERC721TokenTransferEventQuery = TokenTransferEventQuery & {
+export type AccountERC721TokenTransferEventQuery = TokenTransferEventQuery & {
     page: number;
     offset: number;
     startblock?: BlockNumber;
     endblock?: BlockNumber;
     sort?: Sort;
 };
-export declare type AccountERC721TokenTransferEventResponse = {
+export type AccountERC721TokenTransferEventResponse = {
     blockNumber: string;
     timeStamp: string;
     hash: string;
@@ -185,14 +185,14 @@ export declare type AccountERC721TokenTransferEventResponse = {
     input: string;
     confirmations: string;
 };
-export declare type AccountERC1155TokenTransferEventQuery = TokenTransferEventQuery & {
+export type AccountERC1155TokenTransferEventQuery = TokenTransferEventQuery & {
     page: number;
     offset: number;
     startblock?: BlockNumber;
     endblock?: BlockNumber;
     sort?: Sort;
 };
-export declare type AccountERC1155TokenTransferEventResponse = {
+export type AccountERC1155TokenTransferEventResponse = {
     blockNumber: string;
     timeStamp: string;
     hash: string;
@@ -213,16 +213,16 @@ export declare type AccountERC1155TokenTransferEventResponse = {
     tokenSymbol: string;
     confirmations: string;
 };
-export declare type AccountHistoryBalanceOfEthQuery = {
+export type AccountHistoryBalanceOfEthQuery = {
     address: string;
     blockno: BlockNumber;
 };
-export declare type AccountHistoryBalanceOfEthResponse = string;
+export type AccountHistoryBalanceOfEthResponse = string;
 /**************************************** Block ******************************************/
-export declare type BlockRewardQuery = {
+export type BlockRewardQuery = {
     blockno: BlockNumber;
 };
-export declare type BlockRewardResponse = {
+export type BlockRewardResponse = {
     blockNumber: string;
     timeStamp: string;
     blockMiner: string;
@@ -234,22 +234,22 @@ export declare type BlockRewardResponse = {
     }[];
     uncleInclusionReward: string;
 };
-export declare type BlockCountdownQuery = {
+export type BlockCountdownQuery = {
     blockno: BlockNumber;
 };
-export declare type BlockCountdownResponse = {
+export type BlockCountdownResponse = {
     CurrentBlock: string;
     CountdownBlock: string;
     RemainingBlock: string;
     EstimateTimeInSec: string;
 };
-export declare type BlockNoByTimestampQuery = {
+export type BlockNoByTimestampQuery = {
     timestamp: number;
     closest: 'before' | 'after';
 };
-export declare type BlockNoByTimestampResponse = string;
+export type BlockNoByTimestampResponse = string;
 /**************************************** Logs ******************************************/
-export declare type GetLogsQuery = {
+export type GetLogsQuery = {
     address?: string;
     fromBlock: BlockNumber;
     toBlock: BlockNumber;
@@ -271,7 +271,7 @@ export declare type GetLogsQuery = {
     page: number;
     offset: number;
 };
-export declare type GetLogsResponse = {
+export type GetLogsResponse = {
     address: string;
     topics: string[];
     data: string;
@@ -284,17 +284,17 @@ export declare type GetLogsResponse = {
     transactionIndex: string;
 };
 /**************************************** Logs ******************************************/
-export declare type TransactionStatusQuery = string;
-export declare type TransactionStatusResponse = string;
+export type TransactionStatusQuery = string;
+export type TransactionStatusResponse = string;
 /**************************************** Contracts ******************************************/
-export declare type GetContractABIQuery = {
+export type GetContractABIQuery = {
     address: string;
 };
-export declare type GetContractABIResponse = JsonFragment[];
-export declare type GetContractSourceCodeQuery = {
+export type GetContractABIResponse = JsonFragment[];
+export type GetContractSourceCodeQuery = {
     address: string;
 };
-export declare type GetContractSourceCodeResponse = {
+export type GetContractSourceCodeResponse = {
     SourceCode: string;
     ABI: string;
     ContractName: string;
@@ -309,7 +309,7 @@ export declare type GetContractSourceCodeResponse = {
     Implementation: string;
     SwarmSource: string;
 };
-export declare type GetTxReceipt = {
+export type GetTxReceipt = {
     "blockHash": string;
     "blockNumber": string;
     "contractAddress": string | null;

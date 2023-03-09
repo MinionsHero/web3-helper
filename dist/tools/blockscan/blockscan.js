@@ -25,11 +25,11 @@ var Module;
     Module["Proxy"] = "proxy";
 })(Module || (Module = {}));
 class BlockScan {
-    constructor(baseURL, apiKey, timeout = 10000, httpsAgent) {
+    constructor(baseURL, apiKey, timeout = 10000, axiosConfig) {
         this.apiKey = apiKey;
         this.baseURL = baseURL;
         this.timeout = timeout;
-        this.httpsAgent = httpsAgent;
+        this.axiosConfig = axiosConfig;
     }
     // private static availableInstances: BlockScan[] = []
     // public static initAvailableApiKeys(baseURL: string, keys: string[], timeout: number = 10000) {
@@ -49,10 +49,7 @@ class BlockScan {
             const url = this.baseURL + '/api?' + qs_1.default.stringify(Object.assign({ apiKey: this.apiKey, module }, query));
             console.log(url);
             try {
-                const response = yield axios_1.default.get(url, {
-                    responseType: 'json',
-                    httpsAgent: this.httpsAgent
-                });
+                const response = yield axios_1.default.get(url, Object.assign({ responseType: 'json' }, this.axiosConfig));
                 var data = response.data;
                 if (data.status && data.status !== types_1.Status.SUCCESS) {
                     let returnMessage = data.message || 'NOTOK';

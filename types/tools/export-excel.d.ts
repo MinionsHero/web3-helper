@@ -1,5 +1,5 @@
 import { Column } from 'exceljs';
-export declare type SheetData<T> = {
+export type SheetData<T> = {
     title: string;
     summary?: string[];
     columns: (Partial<Column> & {

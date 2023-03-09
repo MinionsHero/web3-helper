@@ -27,7 +27,7 @@ function getArea(columnStart: number, columnEnd: number, rowStart: number, rowEn
     return `${startColumnChar}${startRowIndex}:${endColumnChar}${endRowIndex}`
 }
 
-function addWorksheet<T>(workbook: ExcelJS.Workbook, data: SheetData<T>) {
+function addWorksheet<T extends {}>(workbook: ExcelJS.Workbook, data: SheetData<T>) {
     const { records, title, statistics: _statistics, scanUrl } = data
     const statistics = _statistics || []
     const summary = [
@@ -95,7 +95,7 @@ function addWorksheet<T>(workbook: ExcelJS.Workbook, data: SheetData<T>) {
                         }
                         break
                     case 'link':
-                        if (record[key].text && record[key].link) {
+                        if (r[key].text && r[key].link) {
                             record[key] = {
                                 text: r[key].text,
                                 hyperlink: r[key].link,
@@ -104,7 +104,7 @@ function addWorksheet<T>(workbook: ExcelJS.Workbook, data: SheetData<T>) {
                         }
                         break
                     case 'amount':
-                        record[key] = new BigNumber(r[key]).toFixed()
+                        record[key] = new BigNumber(r[key]).toNumber()
                         break
                     default:
                         record[key] = r[key]
@@ -126,7 +126,7 @@ function addWorksheet<T>(workbook: ExcelJS.Workbook, data: SheetData<T>) {
         //   formula: `SUM(${getArea(index, index + 1, recordRowStart, recordRowEnd)})`,
         //   result: BigNumber.sum(...records.map(r => new BigNumber((r[key] as any) || 0))).toNumber()
         // }
-        statisticsRow[key] = BigNumber.sum(...records.map(r => new BigNumber((r[key] as any) || 0))).toFixed()
+        statisticsRow[key] = BigNumber.sum(...records.map(r => new BigNumber((r[key] as any) || 0))).toNumber()
     }
     if (statistics.length > 0) {
         worksheet.addRow(statisticsRow, 'i') // 添加Footer row
@@ -137,7 +137,7 @@ function addWorksheet<T>(workbook: ExcelJS.Workbook, data: SheetData<T>) {
     return worksheet
 }
 
-function generateWorkbook<T>(data: SheetData<T>[], filename: string) {
+function generateWorkbook<T extends {}>(data: SheetData<T>[], filename: string) {
     const workbook = new ExcelJS.Workbook();// setup workbook
     workbook.creator = '';
     workbook.lastModifiedBy = '';

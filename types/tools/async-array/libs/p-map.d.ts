@@ -24,7 +24,7 @@ Function which is called for every item in `input`. Expected to return a `Promis
 @param element - Iterated element.
 @param index - Index of the element in the source array.
 */
-export declare type Mapper<Element = any, NewElement = unknown> = (element: Element, index: number) => NewElement | Promise<NewElement>;
+export type Mapper<Element = any, NewElement = unknown> = (element: Element, index: number) => NewElement | Promise<NewElement>;
 /**
 @param input - Synchronous or asynchronous iterable that is iterated over concurrently, calling the `mapper` function for each element. Each iterated item is `await`'d before the `mapper` is invoked so the iterable may return a `Promise` that resolves to an item. Asynchronous iterables (different from synchronous iterables that return `Promise` that resolves to an item) can be used when the next item may not be ready without waiting for an asynchronous process to complete and/or the end of the iterable may be reached after the asynchronous process completes. For example, reading from a remote queue when the queue has reached empty, or reading lines from a stream.
 @param mapper - Function which is called for every item in `input`. Expected to return a `Promise` or value.

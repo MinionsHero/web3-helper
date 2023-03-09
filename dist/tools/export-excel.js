@@ -92,7 +92,7 @@ function addWorksheet(workbook, data) {
                         };
                         break;
                     case 'link':
-                        if (record[key].text && record[key].link) {
+                        if (r[key].text && r[key].link) {
                             record[key] = {
                                 text: r[key].text,
                                 hyperlink: r[key].link,
@@ -101,7 +101,7 @@ function addWorksheet(workbook, data) {
                         }
                         break;
                     case 'amount':
-                        record[key] = new bignumber_js_1.default(r[key]).toFixed();
+                        record[key] = new bignumber_js_1.default(r[key]).toNumber();
                         break;
                     default:
                         record[key] = r[key];
@@ -123,7 +123,7 @@ function addWorksheet(workbook, data) {
         //   formula: `SUM(${getArea(index, index + 1, recordRowStart, recordRowEnd)})`,
         //   result: BigNumber.sum(...records.map(r => new BigNumber((r[key] as any) || 0))).toNumber()
         // }
-        statisticsRow[key] = bignumber_js_1.default.sum(...records.map(r => new bignumber_js_1.default(r[key] || 0))).toFixed();
+        statisticsRow[key] = bignumber_js_1.default.sum(...records.map(r => new bignumber_js_1.default(r[key] || 0))).toNumber();
     }
     if (statistics.length > 0) {
         worksheet.addRow(statisticsRow, 'i'); // 添加Footer row

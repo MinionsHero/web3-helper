@@ -3,7 +3,7 @@ import { BlockScan } from './blockscan';
 import { AccountTxListQuery, AccountTxListResponse, ERC20, GetLogsQuery, GetLogsResponse, GetTxReceipt, TokenType } from './types';
 import { ethers } from 'ethers';
 import { JsonFragment } from '@ethersproject/abi';
-export declare type ContractConfig = {
+export type ContractConfig = {
     address: string;
     sourcecode: string;
     mergedAbi: JsonFragment[];

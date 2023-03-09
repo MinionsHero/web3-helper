@@ -1,10 +1,11 @@
+import { AxiosRequestConfig } from 'axios';
 import { AccountTxListInternalResponse, AccountBalanceQuery, AccountBalanceResponse, AccountTokenBalanceQuery, AccountTxListInternalQuery, AccountTxListQuery, AccountMineBlocksQuery, AccountERC20TokenTransferEventQuery, AccountERC721TokenTransferEventQuery, AccountERC1155TokenTransferEventQuery, AccountMineBlocksResponse, AccountERC20TokenTransferEventResponse, AccountERC721TokenTransferEventResponse, AccountERC1155TokenTransferEventResponse, AccountHistoryBalanceOfEthQuery, GetLogsQuery, GetLogsResponse, GetContractABIQuery, GetContractABIResponse, GetContractSourceCodeQuery, GetContractSourceCodeResponse, BlockCountdownQuery, BlockCountdownResponse, BlockNoByTimestampQuery, BlockRewardQuery, BlockRewardResponse, AccountTxListResponse, GetTxReceipt } from './types';
 export declare class BlockScan {
     apiKey: string;
     private baseURL;
     private timeout;
-    private httpsAgent;
-    constructor(baseURL: string, apiKey: string, timeout?: number, httpsAgent?: any);
+    private axiosConfig?;
+    constructor(baseURL: string, apiKey: string, timeout?: number, axiosConfig?: AxiosRequestConfig);
     static query(baseURL: string, apiKey: string): BlockScan;
     setApiKey(): void;
     private get;
