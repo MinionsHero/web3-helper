@@ -122,12 +122,8 @@ export type AccountMineBlocksResponse = {
     blockReward: string;
 };
 type TokenTransferEventQuery = {
-    contractaddress: string;
-    address: string;
-} | {
-    contractaddress: string;
-} | {
-    address: string;
+    contractaddress?: string;
+    address?: string;
 };
 export type AccountERC20TokenTransferEventQuery = TokenTransferEventQuery & {
     page: number;

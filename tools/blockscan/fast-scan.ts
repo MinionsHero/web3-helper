@@ -96,7 +96,7 @@ export class FastScan {
             breakpoint: (tx) => Number(tx.blockNumber),
             uniqWith: (a, b) => a.hash === b.hash,
             request: async (query, qs, i) => {
-                return await query.getTokenERC20Txs(Object.assign({ page: i + 1, offset: this.offset, address: '' }, qs))
+                return await query.getTokenERC20Txs(Object.assign({ page: i + 1, offset: this.offset }, qs))
             },
             prevData: file.tailData(10000),
             cache: async (data) => {

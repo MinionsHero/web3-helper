@@ -78,7 +78,7 @@ class FastScan {
                 breakpoint: (tx) => Number(tx.blockNumber),
                 uniqWith: (a, b) => a.hash === b.hash,
                 request: (query, qs, i) => __awaiter(this, void 0, void 0, function* () {
-                    return yield query.getTokenERC20Txs(Object.assign({ page: i + 1, offset: this.offset, address: '' }, qs));
+                    return yield query.getTokenERC20Txs(Object.assign({ page: i + 1, offset: this.offset }, qs));
                 }),
                 prevData: file.tailData(10000),
                 cache: (data) => __awaiter(this, void 0, void 0, function* () {
