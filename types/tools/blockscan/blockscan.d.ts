@@ -31,15 +31,15 @@ export declare class BlockScan {
     /**
     * Get a list of "ERC20 - Token Transfer Events" by Address
     */
-    getTokenERC20Txs(query: AccountERC20TokenTransferEventQuery): Promise<AccountERC20TokenTransferEventResponse>;
+    getTokenERC20Txs(query: AccountERC20TokenTransferEventQuery): Promise<AccountERC20TokenTransferEventResponse[]>;
     /**
     * Get a list of "ERC721 - Token Transfer Events" by Address
     */
-    getTokenERC721Txs(query: AccountERC721TokenTransferEventQuery): Promise<AccountERC721TokenTransferEventResponse>;
+    getTokenERC721Txs(query: AccountERC721TokenTransferEventQuery): Promise<AccountERC721TokenTransferEventResponse[]>;
     /**
     * Get a list of "ERC1155 - Token Transfer Events" by Address
     */
-    getTokenERC1155Txs(query: AccountERC1155TokenTransferEventQuery): Promise<AccountERC1155TokenTransferEventResponse>;
+    getTokenERC1155Txs(query: AccountERC1155TokenTransferEventQuery): Promise<AccountERC1155TokenTransferEventResponse[]>;
     /**
      * Gethistorical ether balance for a single address by blockNo.
      */

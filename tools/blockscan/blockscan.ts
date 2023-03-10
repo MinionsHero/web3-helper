@@ -176,7 +176,7 @@ export class BlockScan {
     * Get a list of "ERC20 - Token Transfer Events" by Address
     */
     getTokenERC20Txs(query: AccountERC20TokenTransferEventQuery) {
-        return this.get<AccountERC20TokenTransferEventResponse>(Module.Account, Object.assign({
+        return this.get<AccountERC20TokenTransferEventResponse[]>(Module.Account, Object.assign({
             action: 'tokentx',
             startblock: 0,
             endblock: 'latest',
@@ -188,7 +188,7 @@ export class BlockScan {
     * Get a list of "ERC721 - Token Transfer Events" by Address
     */
     getTokenERC721Txs(query: AccountERC721TokenTransferEventQuery) {
-        return this.get<AccountERC721TokenTransferEventResponse>(Module.Account, Object.assign({
+        return this.get<AccountERC721TokenTransferEventResponse[]>(Module.Account, Object.assign({
             action: 'tokennfttx',
             startblock: 0,
             endblock: 'latest',
@@ -199,7 +199,7 @@ export class BlockScan {
     * Get a list of "ERC1155 - Token Transfer Events" by Address
     */
     getTokenERC1155Txs(query: AccountERC1155TokenTransferEventQuery) {
-        return this.get<AccountERC1155TokenTransferEventResponse>(Module.Account, Object.assign({
+        return this.get<AccountERC1155TokenTransferEventResponse[]>(Module.Account, Object.assign({
             action: 'tokennfttx',
             startblock: 0,
             endblock: 'latest',

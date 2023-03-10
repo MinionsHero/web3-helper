@@ -50,6 +50,45 @@ class FastScan {
     dir(args) {
         return path_1.default.resolve(this.output, Object.values(args).join('-')).toLowerCase();
     }
+    /*------------------------------------ERC20 Token Transfer Events-----------------------------------------*/
+    _getNativeTokenERC20Txs(params) {
+        const offset = this.offset;
+        const args = Object.assign({
+            action: 'tokentx',
+            startblock: 0,
+            endblock: 'latest',
+            sort: types_1.Sort.ASC
+        }, params);
+        const file = new fs_1.default(this.dir(args), { offset });
+        return { file, args };
+    }
+    getNativeTokenERC20Txs(params) {
+        return this._getNativeTokenERC20Txs(params).file;
+    }
+    getTokenERC20Txs(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { file, args } = this._getNativeTokenERC20Txs(params);
+            yield (0, helpers_1.multiQuery)({
+                elments: this.blockScans,
+                keys: {
+                    from: 'startblock',
+                    to: 'endblock'
+                },
+                query: args,
+                breakpoint: (tx) => Number(tx.blockNumber),
+                uniqWith: (a, b) => a.hash === b.hash,
+                request: (query, qs, i) => __awaiter(this, void 0, void 0, function* () {
+                    return yield query.getTokenERC20Txs(Object.assign({ page: i + 1, offset: this.offset, address: '' }, qs));
+                }),
+                prevData: file.tailData(10000),
+                cache: (data) => __awaiter(this, void 0, void 0, function* () {
+                    file.append(data);
+                })
+            });
+            return file;
+        });
+    }
+    /*-----------------------------------------------------------------------------*/
     _getNativeTxList(params) {
         const offset = this.offset;
         const args = Object.assign({

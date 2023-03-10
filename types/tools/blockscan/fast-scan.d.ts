@@ -1,6 +1,6 @@
 import FileTool from '../fs';
 import { BlockScan } from './blockscan';
-import { AccountTxListQuery, AccountTxListResponse, ERC20, GetLogsQuery, GetLogsResponse, GetTxReceipt, TokenType } from './types';
+import { AccountERC20TokenTransferEventQuery, AccountERC20TokenTransferEventResponse, AccountTxListQuery, AccountTxListResponse, ERC20, GetLogsQuery, GetLogsResponse, GetTxReceipt, TokenType } from './types';
 import { ethers } from 'ethers';
 import { JsonFragment } from '@ethersproject/abi';
 export type ContractConfig = {
@@ -28,6 +28,9 @@ export declare class FastScan {
     private offset;
     constructor(blockScans: BlockScan[], providers: ethers.providers.JsonRpcProvider[], output: string);
     dir(args: Record<string, any>): string;
+    private _getNativeTokenERC20Txs;
+    getNativeTokenERC20Txs(params: Omit<AccountERC20TokenTransferEventQuery, 'page' | 'offset'>): FileTool<AccountERC20TokenTransferEventResponse>;
+    getTokenERC20Txs(params: Omit<AccountERC20TokenTransferEventQuery, 'page' | 'offset'>): Promise<FileTool<AccountERC20TokenTransferEventResponse>>;
     private _getNativeTxList;
     getNativeTxList(params: Omit<AccountTxListQuery, 'page' | 'offset'>): FileTool<AccountTxListResponse>;
     getNativeTxListDir(params: Omit<AccountTxListQuery, 'page' | 'offset'>): string;

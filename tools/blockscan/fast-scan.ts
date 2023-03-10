@@ -1,7 +1,7 @@
 import FileTool from '../fs';
 import { BlockScan } from './blockscan'
 import { multiQuery, sliceTask } from './helpers'
-import { AccountTxListQuery, AccountTxListResponse, ERC20, GetContractSourceCodeResponse, GetLogsQuery, GetLogsResponse, GetTxReceipt, Sort, TokenType } from './types';
+import { AccountERC20TokenTransferEventQuery, AccountERC20TokenTransferEventResponse, AccountTxListQuery, AccountTxListResponse, ERC20, GetContractSourceCodeResponse, GetLogsQuery, GetLogsResponse, GetTxReceipt, Sort, TokenType } from './types';
 import path from 'path'
 import { BigNumber, ethers } from 'ethers';
 import { debounce, uniqBy } from 'lodash';
@@ -65,6 +65,48 @@ export class FastScan {
     public dir(args: Record<string, any>) {
         return path.resolve(this.output, Object.values(args).join('-')).toLowerCase()
     }
+
+    /*------------------------------------ERC20 Token Transfer Events-----------------------------------------*/
+
+    private _getNativeTokenERC20Txs(params: Omit<AccountERC20TokenTransferEventQuery, 'page' | 'offset'>) {
+        const offset = this.offset
+        const args = Object.assign({
+            action: 'tokentx',
+            startblock: 0,
+            endblock: 'latest',
+            sort: Sort.ASC
+        }, params)
+        const file = new FileTool<AccountERC20TokenTransferEventResponse>(this.dir(args), { offset })
+        return { file, args }
+    }
+
+    getNativeTokenERC20Txs(params: Omit<AccountERC20TokenTransferEventQuery, 'page' | 'offset'>) {
+        return this._getNativeTokenERC20Txs(params).file
+    }
+
+    async getTokenERC20Txs(params: Omit<AccountERC20TokenTransferEventQuery, 'page' | 'offset'>) {
+        const { file, args } = this._getNativeTokenERC20Txs(params)
+        await multiQuery({
+            elments: this.blockScans,
+            keys: {
+                from: 'startblock',
+                to: 'endblock'
+            },
+            query: args,
+            breakpoint: (tx) => Number(tx.blockNumber),
+            uniqWith: (a, b) => a.hash === b.hash,
+            request: async (query, qs, i) => {
+                return await query.getTokenERC20Txs(Object.assign({ page: i + 1, offset: this.offset, address: '' }, qs))
+            },
+            prevData: file.tailData(10000),
+            cache: async (data) => {
+                file.append(data)
+            }
+        })
+        return file
+    }
+
+    /*-----------------------------------------------------------------------------*/
 
     private _getNativeTxList(params: Omit<AccountTxListQuery, 'page' | 'offset'>) {
         const offset = this.offset
