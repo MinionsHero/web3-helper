@@ -105,7 +105,6 @@ export class FastScan {
         })
         return file
     }
-
     /*-----------------------------------------------------------------------------*/
 
     private _getNativeTxList(params: Omit<AccountTxListQuery, 'page' | 'offset'>) {
@@ -293,6 +292,33 @@ export class FastScan {
         const { file, args } = this._getNativeTxList(params)
         return await this.getTxReceiptsForHash(file, args, 'hash', onDataReceived)
     }
+
+    /**------------------------txlist--------------------------**/
+
+    private _getNativeTxs(params: Record<any, any>) {
+        const offset = this.offset
+        const args = Object.assign({
+            action: 'native-txlist'
+        }, params)
+        const file = new FileTool<{ hash: string }>(this.dir(args), { offset })
+        return { file, args }
+    }
+
+    getNativeTxs(params: Record<any, any>) {
+        return this._getNativeTxs(params).file
+    }
+
+    writeNativeTxs(params: Record<any, any>, data: { hash: string }[]) {
+        const ft = this._getNativeTxs(params).file
+        ft.append(data)
+    }
+
+    async getTxs(params: Record<any, any>, onDataReceived?: (data: GetTxReceipt[], file: FileTool<GetTxReceipt>) => void) {
+        const { file, args } = this._getNativeTxs(params)
+        return await this.getTxReceiptsForHash(file, args, 'hash', onDataReceived)
+    }
+
+    /**------------------------------------------------------**/
 
 
     public writeFile<T>(targetDir: string, filename: string, data: T) {

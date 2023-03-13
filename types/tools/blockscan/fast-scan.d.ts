@@ -45,6 +45,16 @@ export declare class FastScan {
     private getTxReceiptsForHash;
     getTxReceiptsForLogs(params: Omit<GetLogsQuery, 'page' | 'offset'>, onDataReceived?: (data: GetTxReceipt[], file: FileTool<GetTxReceipt>) => void): Promise<FileTool<GetTxReceipt>>;
     getTxReceiptsForTxs(params: Omit<AccountTxListQuery, 'page' | 'offset'>, onDataReceived?: (data: GetTxReceipt[], file: FileTool<GetTxReceipt>) => void): Promise<FileTool<GetTxReceipt>>;
+    /**------------------------txlist--------------------------**/
+    private _getNativeTxs;
+    getNativeTxs(params: Record<any, any>): FileTool<{
+        hash: string;
+    }>;
+    writeNativeTxs(params: Record<any, any>, data: {
+        hash: string;
+    }[]): void;
+    getTxs(params: Record<any, any>, onDataReceived?: (data: GetTxReceipt[], file: FileTool<GetTxReceipt>) => void): Promise<FileTool<GetTxReceipt>>;
+    /**------------------------------------------------------**/
     writeFile<T>(targetDir: string, filename: string, data: T): T;
     readFile<T>(targetDir: string, filename: string, fill: T): T;
     private parseContract;

@@ -276,6 +276,29 @@ class FastScan {
             return yield this.getTxReceiptsForHash(file, args, 'hash', onDataReceived);
         });
     }
+    /**------------------------txlist--------------------------**/
+    _getNativeTxs(params) {
+        const offset = this.offset;
+        const args = Object.assign({
+            action: 'native-txlist'
+        }, params);
+        const file = new fs_1.default(this.dir(args), { offset });
+        return { file, args };
+    }
+    getNativeTxs(params) {
+        return this._getNativeTxs(params).file;
+    }
+    writeNativeTxs(params, data) {
+        const ft = this._getNativeTxs(params).file;
+        ft.append(data);
+    }
+    getTxs(params, onDataReceived) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { file, args } = this._getNativeTxs(params);
+            return yield this.getTxReceiptsForHash(file, args, 'hash', onDataReceived);
+        });
+    }
+    /**------------------------------------------------------**/
     writeFile(targetDir, filename, data) {
         fs_extra_1.default.ensureDirSync(targetDir);
         const file = path_1.default.resolve(targetDir, filename);
