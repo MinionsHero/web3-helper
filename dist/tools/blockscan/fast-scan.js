@@ -292,11 +292,16 @@ class FastScan {
         const ft = this._getNativeTxs(params).file;
         ft.append(data);
     }
-    getTxs(params, onDataReceived) {
+    getReceipts(params, onDataReceived) {
         return __awaiter(this, void 0, void 0, function* () {
             const { file, args } = this._getNativeTxs(params);
             return yield this.getTxReceiptsForHash(file, args, 'hash', onDataReceived);
         });
+    }
+    getNativeReceipts(params) {
+        const { args } = this._getNativeTxs(params);
+        const receiptFt = new fs_1.default(this.dir(Object.assign(args, { receipts: 'receipts' })), { offset: this.offset });
+        return receiptFt;
     }
     /**------------------------------------------------------**/
     writeFile(targetDir, filename, data) {

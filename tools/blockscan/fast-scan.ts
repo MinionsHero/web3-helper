@@ -313,9 +313,15 @@ export class FastScan {
         ft.append(data)
     }
 
-    async getTxs(params: Record<any, any>, onDataReceived?: (data: GetTxReceipt[], file: FileTool<GetTxReceipt>) => void) {
+    async getReceipts(params: Record<any, any>, onDataReceived?: (data: GetTxReceipt[], file: FileTool<GetTxReceipt>) => void) {
         const { file, args } = this._getNativeTxs(params)
         return await this.getTxReceiptsForHash(file, args, 'hash', onDataReceived)
+    }
+
+    getNativeReceipts(params: Record<any, any>) {
+        const { args } = this._getNativeTxs(params)
+        const receiptFt = new FileTool<GetTxReceipt>(this.dir(Object.assign(args, { receipts: 'receipts' })), { offset: this.offset })
+        return receiptFt
     }
 
     /**------------------------------------------------------**/

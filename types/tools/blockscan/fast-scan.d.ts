@@ -53,7 +53,8 @@ export declare class FastScan {
     writeNativeTxs(params: Record<any, any>, data: {
         hash: string;
     }[]): void;
-    getTxs(params: Record<any, any>, onDataReceived?: (data: GetTxReceipt[], file: FileTool<GetTxReceipt>) => void): Promise<FileTool<GetTxReceipt>>;
+    getReceipts(params: Record<any, any>, onDataReceived?: (data: GetTxReceipt[], file: FileTool<GetTxReceipt>) => void): Promise<FileTool<GetTxReceipt>>;
+    getNativeReceipts(params: Record<any, any>): FileTool<GetTxReceipt>;
     /**------------------------------------------------------**/
     writeFile<T>(targetDir: string, filename: string, data: T): T;
     readFile<T>(targetDir: string, filename: string, fill: T): T;
