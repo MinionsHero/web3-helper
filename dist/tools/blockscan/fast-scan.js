@@ -191,11 +191,11 @@ class FastScan {
             const receiptFt = new fs_1.default(this.dir(Object.assign(args, { receipts: 'receipts' })), { offset: this.offset });
             const next = file.read(receiptFt.length);
             let data;
-            const lastPageData = receiptFt.readLastPageData();
-            const cache = lastPageData ? lastPageData.reduce((prev, cur) => {
+            const allReceiptsData = receiptFt.readData();
+            const cache = allReceiptsData.reduce((prev, cur) => {
                 prev[cur.transactionHash] = cur;
                 return prev;
-            }, {}) : {};
+            }, {});
             const providers = [
                 ...this.providers,
             ];

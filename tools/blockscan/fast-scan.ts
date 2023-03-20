@@ -213,11 +213,11 @@ export class FastScan {
         const receiptFt = new FileTool<GetTxReceipt>(this.dir(Object.assign(args, { receipts: 'receipts' })), { offset: this.offset })
         const next = file.read(receiptFt.length)
         let data: T[] | null
-        const lastPageData = receiptFt.readLastPageData()
-        const cache: Record<string, GetTxReceipt> = lastPageData ? lastPageData.reduce((prev, cur) => {
+        const allReceiptsData = receiptFt.readData()
+        const cache: Record<string, GetTxReceipt> = allReceiptsData.reduce((prev, cur) => {
             prev[cur.transactionHash] = cur
             return prev
-        }, {} as Record<string, GetTxReceipt>) : {}
+        }, {} as Record<string, GetTxReceipt>)
         const providers = [
             ...this.providers,
         ]
